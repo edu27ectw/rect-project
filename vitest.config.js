@@ -9,5 +9,11 @@ export default defineConfig({
     setupFiles: './src/setup.js',
     include: ['src/**/*.test.{js,jsx}'],
     exclude: ['node_modules'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      include: ['src/**/*.{js,jsx}'],
+      exclude: ['src/**/*.test.{js,jsx}', 'node_modules'],
+    },
   },
 });

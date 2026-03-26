@@ -101,4 +101,42 @@ describe('App2 Logic', () => {
     
     expect(screen.getByText(/Welcome, initial installation/i)).toBeDefined();
   });
+
+  it('increments counter by 10 on each click', () => {
+    render(<TestApp2 />);
+    const button = screen.getByRole('button', { name: /GRAINGER in 0 seconds/i });
+    
+    fireEvent.click(button);
+    fireEvent.click(button);
+    fireEvent.click(button);
+    
+    const updatedButton = screen.getByRole('button', { name: /GRAINGER in 30 seconds/i });
+    expect(updatedButton).toBeDefined();
+  });
+
+  it('displays all people in the list', () => {
+    render(<TestApp2 />);
+    const goToPeopleButton = screen.getByRole('button', { name: /Go to people page/i });
+    
+    fireEvent.click(goToPeopleButton);
+    
+    expect(screen.getByText(/Juan Pérez/i)).toBeDefined();
+    expect(screen.getByText(/María García/i)).toBeDefined();
+  });
+
+  it('displays person details correctly', () => {
+    render(<TestApp2 />);
+    const goToPeopleButton = screen.getByRole('button', { name: /Go to people page/i });
+    
+    fireEvent.click(goToPeopleButton);
+    
+    // Search for individual parts since they're in separate elements
+    expect(screen.getByText('Juan Pérez')).toBeDefined();
+    expect(screen.getByText(/Developer/)).toBeDefined();
+    expect(screen.getByText(/5 experience years/)).toBeDefined();
+    
+    expect(screen.getByText('María García')).toBeDefined();
+    expect(screen.getByText(/Designer/)).toBeDefined();
+    expect(screen.getByText(/3 experience years/)).toBeDefined();
+  });
 });
