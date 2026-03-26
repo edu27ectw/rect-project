@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22.x'
           cache: 'npm'
 
       - name: Install dependencies
@@ -30,8 +30,10 @@ jobs:
         run: npm run test -- --coverage --run
 
       - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
+          # Es fundamental que crees este secret en GitHub Settings -> Secrets -> Actions
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/coverage-final.json
           flags: unittests
           fail_ci_if_error: true

@@ -1,27 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import Child from "./Child";
 import { decrementCount } from "./utils";
 
+let message = "Let's start folks!!!";
+
 function App() {
   const [count, setCount] = useState(10);
-
+  
   const handleDecrement = () => {
     decrementCount(count, setCount);
   };
+
+  useEffect(() => {
+    message = count > 1 ? "Let's start folks!!!" : "Ready now!!!";
+  }, [count]);
 
   return (
     <>
       <section id="center">
         <div class="container mt-5">
-          <div class="alert alert-success d-flex">            
-            <p className="h1 text-primary fw-bold">¡Bootstrap is working correctly in Vite!</p>
+          <div class="alert alert-success d-flex">
+            <p className="h1 text-primary fw-bold">
+              ¡Bootstrap is working correctly in Vite!
+            </p>
           </div>
           <button class="btn btn-primary d-flex">
             <p className="h3">Bootstrap Button</p>
-            </button>
+          </button>
         </div>
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
@@ -29,15 +37,12 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Let´s start folks!!!</h1>
+          <h1>{message}</h1>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
         </div>
-        <button
-          className="counter"
-          onClick={handleDecrement}
-        >
+        <button className="counter" onClick={handleDecrement}>
           {count === 0 ? "Ready!!" : `Count is ${count}`}
         </button>
         <Child message="Hello from parent" />
